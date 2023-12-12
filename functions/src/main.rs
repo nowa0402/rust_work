@@ -44,6 +44,17 @@ fn main() {
     let s1 = String::from("hello");
     take_ownership(s1);
     // println!("s1: {}", s1); // error
+
+    // 参照渡し
+    let s2 = String::from("world");
+    // &s2でオブジェクトの参照先だけ渡す。所有権はムーブしない。
+    let s2_len = calculate_length(&s2);
+    println!("s2,: {} s2_len: {}", s2, s2_len);
+
+    // 可変な参照
+    let mut s3 = String::from("hello");
+    change_str(&mut s3);
+    println!("s3: {}", s3);
 }
 
 // 引数定義
@@ -62,4 +73,12 @@ fn plus_one(x: i32) -> i32 {
 
 fn take_ownership(some_string: String) {
     println!("some_string: {}", some_string);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+fn change_str(s: &mut String) {
+    s.push_str(", string")
 }
