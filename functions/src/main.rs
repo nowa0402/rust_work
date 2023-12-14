@@ -55,6 +55,15 @@ fn main() {
     let mut s3 = String::from("hello");
     change_str(&mut s3);
     println!("s3: {}", s3);
+
+    let mut hello = String::from("hello world");
+    let first = first_word(&hello[..]);
+    let first = first.len();
+    // error (firstがhelloを参照している関係[スライス]になっているため、変更したらエラーが起きる)
+    hello.clear();
+    println!("word: {}", first);
+
+    // let st = "sample hello";
 }
 
 // 引数定義
@@ -81,4 +90,19 @@ fn calculate_length(s: &String) -> usize {
 
 fn change_str(s: &mut String) {
     s.push_str(", string")
+}
+
+// 与えられた文字列から最初の単語の数を返却する
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+
+    // i = 添字 item = 要素
+    for (i, &item) in bytes.iter().enumerate() {
+        println!("item: {}", i);
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    s
 }
